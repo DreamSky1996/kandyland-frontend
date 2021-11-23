@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./header.scss";
-import { ReactComponent as WonderlandIcon } from "../../../../assets/icons/wonderland-icon.svg";
+import { ReactComponent as KandylandIcon } from "../../../../assets/icons/kandyland-icon.svg";
 import { SvgIcon, Link, Box, Popper, Fade } from "@material-ui/core";
 import { ReactComponent as GitHub } from "../../../../assets/icons/github.svg";
 import { ReactComponent as Twitter } from "../../../../assets/icons/twitter.svg";
@@ -18,7 +18,7 @@ function Header() {
 
     return (
         <div className="landing-header">
-            <SvgIcon color="primary" component={WonderlandIcon} viewBox="0 0 174 40" style={{ minWidth: 174, minHeight: 40 }} />
+            <SvgIcon color="primary" component={KandylandIcon} viewBox="0 0 174 40" style={{ minWidth: 174, minHeight: 40 }} />
             <div className="landing-header-nav-wrap">
                 <Box component="div" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
                     <p className="landing-header-nav-text">Social</p>
@@ -26,11 +26,11 @@ function Header() {
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={200}>
                                 <div className="tooltip">
-                                    <Link className="tooltip-item" href="https://github.com/Wonderland-Money/wonderland-frontend" target="_blank">
+                                    <Link className="tooltip-item" href="https://github.com/Kandyland-Money/kandyland-frontend" target="_blank">
                                         <SvgIcon color="primary" component={GitHub} />
                                         <p>GitHub</p>
                                     </Link>
-                                    <Link className="tooltip-item" href="https://twitter.com/wonderland_fi?s=21" target="_blank">
+                                    <Link className="tooltip-item" href="https://twitter.com/kandyland_fi?s=21" target="_blank">
                                         <SvgIcon color="primary" component={Twitter} />
                                         <p>Twitter</p>
                                     </Link>

@@ -6,9 +6,6 @@ import { loadTokenPrices } from "../helpers";
 import Loading from "../components/Loader";
 
 function Root() {
-    // const isApp = (): boolean => {
-    //     return window.location.host.includes("app");
-    // };
 
     const [loading, setLoading] = useState(true);
 
@@ -24,7 +21,6 @@ function Root() {
         </HashRouter>
     );
 
-    // return isApp() ? app() : <Landing />;
     return app();
 }
 

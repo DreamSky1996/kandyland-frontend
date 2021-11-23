@@ -10,12 +10,12 @@ function Main() {
                 <img src={CatImg} alt="" />
             </div>
             <div className="landing-main-btns-wrap">
-                <Link href="https://app.wonderland.money" target="_blank" rel="noreferrer">
+                <Link href="https://app.kandyland.money" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn">
                         <p>Enter App</p>
                     </div>
                 </Link>
-                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank" rel="noreferrer">
+                <Link href="https://kandyland.gitbook.io/kandyland/" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn">
                         <p>Documentation</p>
                     </div>
