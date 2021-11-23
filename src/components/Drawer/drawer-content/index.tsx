@@ -36,12 +36,12 @@ function NavContent() {
         }
         return false;
     }, []);
-
+    let style = { height: "100px", width: "100px" };
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
                 <Link href="https://kandyland.money" target="_blank">
-                    <img alt="" src={KandylandIcon} />
+                    <img alt="" src={KandylandIcon}  style={style}/>
                 </Link>
 
                 {address && (
