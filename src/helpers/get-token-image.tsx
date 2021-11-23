@@ -1,4 +1,4 @@
-import KandyImg from "../assets/tokens/KANDY.svg";
+import KandyImg from "../assets/tokens/KANDY.png";
 import MemoImg from "../assets/tokens/MEMO.png";
 
 function toUrl(tokenPath: string): string {

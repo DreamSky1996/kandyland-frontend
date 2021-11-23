@@ -36,7 +36,7 @@ function NavContent() {
         }
         return false;
     }, []);
-    let style = { height: "100px", width: "100px" };
+    let style = { height: "150px", width: "150px" };
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">

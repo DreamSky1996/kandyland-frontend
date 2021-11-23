@@ -4,8 +4,8 @@ import { StableBond, CustomBond } from "./stable-bond";
 
 import MimIcon from "../../assets/tokens/MIM.svg";
 import AvaxIcon from "../../assets/tokens/AVAX.svg";
-import MimKandyIcon from "../../assets/tokens/KANDY-MIM.svg";
-import AvaxKandyIcon from "../../assets/tokens/KANDY-AVAX.svg";
+import MimKandyIcon from "../../assets/tokens/KANDY-MIM.png";
+import AvaxKandyIcon from "../../assets/tokens/KANDY-AVAX.png";
 
 import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
