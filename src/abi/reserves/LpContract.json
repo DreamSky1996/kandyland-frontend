@@ -269,7 +269,7 @@
             "type": "uint112"
         }, {
             "internalType": "uint32",
-            "name": "_blockKandystampLast",
+            "name": "_blockTimestampLast",
             "type": "uint32"
         }],
         "stateMutability": "view",

@@ -184,7 +184,7 @@
             "type": "uint32"
         }, {
             "internalType": "uint32",
-            "name": "lastKandy",
+            "name": "lastTime",
             "type": "uint32"
         }],
         "stateMutability": "view",
@@ -216,7 +216,7 @@
             "type": "uint256"
         }, {
             "internalType": "uint32",
-            "name": "lastKandy",
+            "name": "lastTime",
             "type": "uint32"
         }, {
             "internalType": "uint32",
