@@ -63,16 +63,6 @@ function ViewBase({ children }: IViewBaseProps) {
                 </Hidden>
             </div>
             <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>
-                {!isSmallerScreen && (
-                    <div className="cubes-top">
-                        <p>{cubesImage}</p>
-                    </div>
-                )}
-                {!isSmallScreen && (
-                    <div className="cubes-bottom">
-                        <p>{cubesImage}</p>
-                    </div>
-                )}
                 {children}
             </div>
         </div>

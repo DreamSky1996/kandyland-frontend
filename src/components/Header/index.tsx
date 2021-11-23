@@ -2,7 +2,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import MenuIcon from "../../assets/icons/hamburger.svg";
-import TimeMenu from "./time-menu";
+import KandyMenu from "./kandy-menu";
 import ConnectButton from "./connect-button";
 import WrapButton from "./wrap-button";
 import "./header.scss";
@@ -54,7 +54,7 @@ function Header({ handleDrawerToggle, drawe }: IHeader) {
                         <img src={MenuIcon} alt="" />
                     </div>
                     <div className="dapp-topbar-btns-wrap">
-                        {!isVerySmallScreen && <TimeMenu />}
+                        {!isVerySmallScreen && <KandyMenu />}
                         {!isWrapShow && <WrapButton />}
                         <ConnectButton />
                     </div>

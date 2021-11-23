@@ -1,4 +1,4 @@
-import TimeImg from "../assets/tokens/TIME.svg";
+import KandyImg from "../assets/tokens/KANDY.svg";
 import MemoImg from "../assets/tokens/MEMO.png";
 
 function toUrl(tokenPath: string): string {
@@ -7,8 +7,8 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "time") {
-        return toUrl(TimeImg);
+    if (name === "kandy") {
+        return toUrl(KandyImg);
     }
 
     if (name === "memo") {

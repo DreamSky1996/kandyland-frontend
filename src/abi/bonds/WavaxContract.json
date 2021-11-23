@@ -220,7 +220,7 @@
                 },
                 {
                     "internalType": "uint32",
-                    "name": "lastTime",
+                    "name": "lastKandy",
                     "type": "uint32"
                 }
             ],
@@ -262,7 +262,7 @@
                 },
                 {
                     "internalType": "uint32",
-                    "name": "lastTime",
+                    "name": "lastKandy",
                     "type": "uint32"
                 }
             ],
@@ -566,7 +566,7 @@
         },
         {
             "inputs": [{
-                    "internalType": "enum TimeBondDepository.PARAMETER",
+                    "internalType": "enum KandyBondDepository.PARAMETER",
                     "name": "_parameter",
                     "type": "uint8"
                 },

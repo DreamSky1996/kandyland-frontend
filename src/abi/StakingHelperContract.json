@@ -9,7 +9,7 @@
                 },
                 {
                     "internalType": "address",
-                    "name": "_Time",
+                    "name": "_Kandy",
                     "type": "address"
                 }
             ],
@@ -18,7 +18,7 @@
         },
         {
             "inputs": [],
-            "name": "Time",
+            "name": "Kandy",
             "outputs": [
                 {
                     "internalType": "address",
