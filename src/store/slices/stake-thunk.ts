@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, KandyTokenContract, MemoTokenContract, StakingContract } from "../../abi";
+import { StakingHelperContract, KandyTokenContract, sKANDYTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -28,7 +28,7 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     const signer = provider.getSigner();
     const kandyContract = new ethers.Contract(addresses.KANDY_ADDRESS, KandyTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
+    const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, sKANDYTokenContract, signer);
 
     let approveTx;
     try {
@@ -38,8 +38,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
             approveTx = await kandyContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        if (token === "memo") {
-            approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "sKANDY") {
+            approveTx = await sKANDYContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
         const text = "Approve " + (token === "kandy" ? "Staking" : "Unstaking");
@@ -59,13 +59,13 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     await sleep(2);
 
     const stakeAllowance = await kandyContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+    const unstakeAllowance = await sKANDYContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
             staking: {
                 kandyStake: Number(stakeAllowance),
-                memoUnstake: Number(unstakeAllowance),
+                sKANDYUnstake: Number(unstakeAllowance),
             },
         }),
     );

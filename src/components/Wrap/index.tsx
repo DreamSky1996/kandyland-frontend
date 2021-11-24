@@ -26,11 +26,11 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
 
     const isAppLoading = useSelector<IReduxState, boolean>(state => state.app.loading);
 
-    const memoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.memo;
+    const sKANDYBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.sKANDY;
     });
-    const wmemoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.wmemo;
+    const wsKANDYBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.wsKANDY;
     });
 
     const wrapValue = useSelector<IReduxState, string>(state => {
@@ -41,17 +41,17 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
         return state.pendingTransactions;
     });
 
-    const memoAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.wraping && state.account.wraping.memo;
+    const sKANDYAllowance = useSelector<IReduxState, number>(state => {
+        return state.account.wraping && state.account.wraping.sKANDY;
     });
 
     const [isWrap, setIsWrap] = useState(true);
 
     const setMax = () => {
         if (isWrap) {
-            setValue(memoBalance);
+            setValue(sKANDYBalance);
         } else {
-            setValue(wmemoBalance);
+            setValue(wsKANDYBalance);
         }
     };
 
@@ -76,12 +76,12 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
         handleClose();
     };
 
-    const hasAllowance = useCallback(() => memoAllowance > 0, [memoAllowance]);
+    const hasAllowance = useCallback(() => sKANDYAllowance > 0, [sKANDYAllowance]);
 
-    const trimmedMemoBalance = trim(Number(memoBalance), 6);
-    const trimmedWmemoBalance = trim(Number(wmemoBalance), 6);
+    const trimmedsKANDYBalance = trim(Number(sKANDYBalance), 6);
+    const trimmedwsKANDYBalance = trim(Number(wsKANDYBalance), 6);
 
-    const getBalance = () => (isWrap ? `${trimmedMemoBalance} MEMO` : `${trimmedWmemoBalance} wMEMO`);
+    const getBalance = () => (isWrap ? `${trimmedsKANDYBalance} sKANDY` : `${trimmedwsKANDYBalance} wsKANDY`);
 
     const handleOnWrap = async () => {
         if (await checkWrongNetwork()) return;
@@ -125,7 +125,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                         startAdornment={
                             <InputAdornment position="start">
                                 <div className="wrap-action-input-text">
-                                    <p>{isWrap ? "MEMO" : "wMEMO"}</p>
+                                    <p>{isWrap ? "sKANDY" : "wsKANDY"}</p>
                                 </div>
                             </InputAdornment>
                         }
@@ -152,7 +152,7 @@ function Wrap({ open, handleClose }: IAdvancedSettingsProps) {
                         startAdornment={
                             <InputAdornment position="start">
                                 <div className="wrap-action-input-text">
-                                    <p>{isWrap ? "wMEMO" : "MEMO"}</p>
+                                    <p>{isWrap ? "wsKANDY" : "sKANDY"}</p>
                                 </div>
                             </InputAdornment>
                         }

@@ -6,7 +6,7 @@
             "type": "address"
         }, {
             "internalType": "address",
-            "name": "_Memories",
+            "name": "_sKandyland",
             "type": "address"
         }, {
             "internalType": "uint32",
@@ -55,7 +55,7 @@
         "type": "event"
     }, {
         "inputs": [],
-        "name": "Memories",
+        "name": "sKandyland",
         "outputs": [{
             "internalType": "address",
             "name": "",

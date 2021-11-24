@@ -15,15 +15,15 @@ function Calculator() {
     const stakingAPY = useSelector<IReduxState, number>(state => {
         return state.app.stakingAPY;
     });
-    const memoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.memo;
+    const sKANDYBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.sKANDY;
     });
 
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
-    const trimmedMemoBalance = trim(Number(memoBalance), 6);
+    const trimmedsKANDYBalance = trim(Number(sKANDYBalance), 6);
     const trimeMarketPrice = trim(marketPrice, 2);
 
-    const [memoAmount, setMemoAmount] = useState(trimmedMemoBalance);
+    const [sKANDYAmount, setsKANDYAmount] = useState(trimmedsKANDYBalance);
     const [rewardYield, setRewardYield] = useState(trimmedStakingAPY);
     const [priceAtPurchase, setPriceAtPurchase] = useState(trimeMarketPrice);
     const [futureMarketPrice, setFutureMarketPrice] = useState(trimeMarketPrice);
@@ -33,16 +33,16 @@ function Calculator() {
     const [potentialReturn, setPotentialReturn] = useState("0");
 
     const calcInitialInvestment = () => {
-        const memo = Number(memoAmount) || 0;
+        const sKANDY = Number(sKANDYAmount) || 0;
         const price = parseFloat(priceAtPurchase) || 0;
-        const amount = memo * price;
+        const amount = sKANDY * price;
         return trim(amount, 2);
     };
 
     const calcCurrentWealth = () => {
-        const memo = Number(memoAmount) || 0;
+        const sKANDY = Number(sKANDYAmount) || 0;
         const price = parseFloat(trimeMarketPrice);
-        const amount = memo * price;
+        const amount = sKANDY * price;
         return trim(amount, 2);
     };
 
@@ -51,12 +51,12 @@ function Calculator() {
     useEffect(() => {
         const newInitialInvestment = calcInitialInvestment();
         setInitialInvestment(newInitialInvestment);
-    }, [memoAmount, priceAtPurchase]);
+    }, [sKANDYAmount, priceAtPurchase]);
 
     const calcNewBalance = () => {
         let value = parseFloat(rewardYield) / 100;
         value = Math.pow(value - 1, 1 / (365 * 3)) - 1 || 0;
-        let balance = Number(memoAmount);
+        let balance = Number(sKANDYAmount);
         for (let i = 0; i < days * 3; i++) {
             balance += balance * value;
         }
@@ -68,7 +68,7 @@ function Calculator() {
         setRewardsEstimation(trim(newBalance, 6));
         const newPotentialReturn = newBalance * (parseFloat(futureMarketPrice) || 0);
         setPotentialReturn(trim(newPotentialReturn, 2));
-    }, [days, rewardYield, futureMarketPrice, memoAmount]);
+    }, [days, rewardYield, futureMarketPrice, sKANDYAmount]);
 
     return (
         <div className="calculator-view">
@@ -100,8 +100,8 @@ function Calculator() {
                                     </Grid>
                                     <Grid item xs={6} sm={4} md={4} lg={4}>
                                         <div className="calculator-card-index">
-                                            <p className="calculator-card-metrics-title">Your MEMO Balance</p>
-                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                            <p className="calculator-card-metrics-title">Your sKANDY Balance</p>
+                                            <p className="calculator-card-metrics-value">{isAppLoading ? <Skeleton width="100px" /> : <>{trimmedsKANDYBalance} sKANDY</>}</p>
                                         </div>
                                     </Grid>
                                 </Grid>
@@ -114,17 +114,17 @@ function Calculator() {
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} sm={6}>
                                             <div className="calculator-card-action-area-inp-wrap">
-                                                <p className="calculator-card-action-area-inp-wrap-title">MEMO Amount</p>
+                                                <p className="calculator-card-action-area-inp-wrap-title">sKANDY Amount</p>
                                                 <OutlinedInput
                                                     type="number"
                                                     placeholder="Amount"
                                                     className="calculator-card-action-input"
-                                                    value={memoAmount}
-                                                    onChange={e => setMemoAmount(e.target.value)}
+                                                    value={sKANDYAmount}
+                                                    onChange={e => setsKANDYAmount(e.target.value)}
                                                     labelWidth={0}
                                                     endAdornment={
                                                         <InputAdornment position="end">
-                                                            <div onClick={() => setMemoAmount(trimmedMemoBalance)} className="stake-card-action-input-btn">
+                                                            <div onClick={() => setsKANDYAmount(trimmedsKANDYBalance)} className="stake-card-action-input-btn">
                                                                 <p>Max</p>
                                                             </div>
                                                         </InputAdornment>

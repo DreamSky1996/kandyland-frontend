@@ -269,7 +269,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "MEMOries",
+        "name": "sKandyland",
         "outputs": [{
             "internalType": "address",
             "name": "",

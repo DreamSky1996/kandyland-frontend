@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { KandyTokenContract, MemoTokenContract, MimTokenContract, wMemoTokenContract } from "../../abi";
+import { KandyTokenContract, sKANDYTokenContract, MimTokenContract, wsKANDYTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -19,27 +19,27 @@ interface IGetBalances {
 
 interface IAccountBalances {
     balances: {
-        memo: string;
+        sKANDY: string;
         kandy: string;
-        wmemo: string;
+        wsKANDY: string;
     };
 }
 
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-    const memoBalance = await memoContract.balanceOf(address);
+    const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, sKANDYTokenContract, provider);
+    const sKANDYBalance = await sKANDYContract.balanceOf(address);
     const kandyContract = new ethers.Contract(addresses.KANDY_ADDRESS, KandyTokenContract, provider);
     const kandyBalance = await kandyContract.balanceOf(address);
-    const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
-    const wmemoBalance = await wmemoContract.balanceOf(address);
+    const wsKANDYContract = new ethers.Contract(addresses.wsKANDY_ADDRESS, wsKANDYTokenContract, provider);
+    const wsKANDYBalance = await wsKANDYContract.balanceOf(address);
 
     return {
         balances: {
-            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
+            sKANDY: ethers.utils.formatUnits(sKANDYBalance, "gwei"),
             kandy: ethers.utils.formatUnits(kandyBalance, "gwei"),
-            wmemo: ethers.utils.formatEther(wmemoBalance),
+            wsKANDY: ethers.utils.formatEther(wsKANDYBalance),
         },
     };
 });
@@ -53,24 +53,24 @@ interface ILoadAccountDetails {
 interface IUserAccountDetails {
     balances: {
         kandy: string;
-        memo: string;
-        wmemo: string;
+        sKANDY: string;
+        wsKANDY: string;
     };
     staking: {
         kandy: number;
-        memo: number;
+        sKANDY: number;
     };
     wraping: {
-        memo: number;
+        sKANDY: number;
     };
 }
 
 export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails", async ({ networkID, provider, address }: ILoadAccountDetails): Promise<IUserAccountDetails> => {
     let kandyBalance = 0;
-    let memoBalance = 0;
+    let sKANDYBalance = 0;
 
-    let wmemoBalance = 0;
-    let memoWmemoAllowance = 0;
+    let wsKANDYBalance = 0;
+    let sKANDYwsKANDYAllowance = 0;
 
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
@@ -83,33 +83,33 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
         stakeAllowance = await kandyContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
-    if (addresses.MEMO_ADDRESS) {
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-        memoBalance = await memoContract.balanceOf(address);
-        unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+    if (addresses.sKANDY_ADDRESS) {
+        const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, sKANDYTokenContract, provider);
+        sKANDYBalance = await sKANDYContract.balanceOf(address);
+        unstakeAllowance = await sKANDYContract.allowance(address, addresses.STAKING_ADDRESS);
 
-        if (addresses.WMEMO_ADDRESS) {
-            memoWmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
+        if (addresses.wsKANDY_ADDRESS) {
+            sKANDYwsKANDYAllowance = await sKANDYContract.allowance(address, addresses.wsKANDY_ADDRESS);
         }
     }
 
-    if (addresses.WMEMO_ADDRESS) {
-        const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
-        wmemoBalance = await wmemoContract.balanceOf(address);
+    if (addresses.wsKANDY_ADDRESS) {
+        const wsKANDYContract = new ethers.Contract(addresses.wsKANDY_ADDRESS, wsKANDYTokenContract, provider);
+        wsKANDYBalance = await wsKANDYContract.balanceOf(address);
     }
 
     return {
         balances: {
-            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
+            sKANDY: ethers.utils.formatUnits(sKANDYBalance, "gwei"),
             kandy: ethers.utils.formatUnits(kandyBalance, "gwei"),
-            wmemo: ethers.utils.formatEther(wmemoBalance),
+            wsKANDY: ethers.utils.formatEther(wsKANDYBalance),
         },
         staking: {
             kandy: Number(stakeAllowance),
-            memo: Number(unstakeAllowance),
+            sKANDY: Number(unstakeAllowance),
         },
         wraping: {
-            memo: Number(memoWmemoAllowance),
+            sKANDY: Number(sKANDYwsKANDYAllowance),
         },
     };
 });
@@ -246,17 +246,17 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
-        memo: string;
+        sKANDY: string;
         kandy: string;
-        wmemo: string;
+        wsKANDY: string;
     };
     loading: boolean;
     staking: {
         kandy: number;
-        memo: number;
+        sKANDY: number;
     };
     wraping: {
-        memo: number;
+        sKANDY: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
 }
@@ -264,9 +264,9 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", kandy: "", wmemo: "" },
-    staking: { kandy: 0, memo: 0 },
-    wraping: { memo: 0 },
+    balances: { sKANDY: "", kandy: "", wsKANDY: "" },
+    staking: { kandy: 0, sKANDY: 0 },
+    wraping: { sKANDY: 0 },
     tokens: {},
 };
 

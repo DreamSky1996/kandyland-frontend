@@ -39,7 +39,7 @@ function KandyMenu() {
 
     const addresses = getAddresses(networkID);
 
-    const MEMO_ADDRESS = addresses.MEMO_ADDRESS;
+    const sKANDY_ADDRESS = addresses.sKANDY_ADDRESS;
     const KANDY_ADDRESS = addresses.KANDY_ADDRESS;
 
     const handleClick = (event: any) => {
@@ -70,8 +70,8 @@ function KandyMenu() {
                                     <div className="tooltip-item" onClick={addTokenToWallet("KANDY", KANDY_ADDRESS)}>
                                         <p>KANDY</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("MEMO", MEMO_ADDRESS)}>
-                                        <p>MEMO</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("sKANDY", sKANDY_ADDRESS)}>
+                                        <p>sKANDY</p>
                                     </div>
                                 </div>
                             )}

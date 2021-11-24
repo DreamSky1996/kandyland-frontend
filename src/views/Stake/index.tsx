@@ -30,14 +30,14 @@ function Stake() {
     const kandyBalance = useSelector<IReduxState, string>(state => {
         return state.account.balances && state.account.balances.kandy;
     });
-    const memoBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.memo;
+    const sKANDYBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.sKANDY;
     });
     const stakeAllowance = useSelector<IReduxState, number>(state => {
         return state.account.staking && state.account.staking.kandy;
     });
     const unstakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.memo;
+        return state.account.staking && state.account.staking.sKANDY;
     });
     const stakingRebase = useSelector<IReduxState, number>(state => {
         return state.app.stakingRebase;
@@ -57,7 +57,7 @@ function Stake() {
         if (view === 0) {
             setQuantity(kandyBalance);
         } else {
-            setQuantity(memoBalance);
+            setQuantity(sKANDYBalance);
         }
     };
 
@@ -80,7 +80,7 @@ function Stake() {
     const hasAllowance = useCallback(
         token => {
             if (token === "kandy") return stakeAllowance > 0;
-            if (token === "memo") return unstakeAllowance > 0;
+            if (token === "sKANDY") return unstakeAllowance > 0;
             return 0;
         },
         [stakeAllowance],
@@ -91,10 +91,10 @@ function Stake() {
         setQuantity("");
     };
 
-    const trimmedMemoBalance = trim(Number(memoBalance), 6);
+    const trimmedsKANDYBalance = trim(Number(sKANDYBalance), 6);
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
-    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
+    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedsKANDYBalance), 6);
 
     return (
         <div className="stake-view">
@@ -214,7 +214,7 @@ function Stake() {
 
                                             {view === 1 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("memo") ? (
+                                                    {address && hasAllowance("sKANDY") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -229,7 +229,7 @@ function Stake() {
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
-                                                                onSeekApproval("memo");
+                                                                onSeekApproval("sKANDY");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
@@ -240,7 +240,7 @@ function Stake() {
                                         </div>
 
                                         <div className="stake-card-action-help-text">
-                                            {address && ((!hasAllowance("kandy") && view === 0) || (!hasAllowance("memo") && view === 1)) && (
+                                            {address && ((!hasAllowance("kandy") && view === 0) || (!hasAllowance("sKANDY") && view === 1)) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
@@ -257,12 +257,12 @@ function Stake() {
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsKANDYBalance} sKANDY</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Next Reward Amount</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} MEMO</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} sKANDY</>}</p>
                                         </div>
 
                                         <div className="data-row">
