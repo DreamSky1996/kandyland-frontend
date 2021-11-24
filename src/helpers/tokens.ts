@@ -35,7 +35,7 @@ import SpellIcon from "../assets/tokens/SPELL.png";
 import SushiEIcon from "../assets/tokens/SUSHI.e.png";
 import SynIcon from "../assets/tokens/SYN.png";
 import TeddyIcon from "../assets/tokens/TEDDY.png";
-import KandyIcon from "../assets/tokens/KANDY.svg";
+import TimeIcon from "../assets/tokens/TIME.svg";
 import TsdIcon from "../assets/tokens/TSD.png";
 import UsdcEIcon from "../assets/tokens/USDC.e.png";
 import UsdtEIcon from "../assets/tokens/USDT.e.png";
@@ -315,10 +315,10 @@ const teddy: IToken = {
     decimals: 18,
 };
 
-const kandy: IToken = {
-    name: "KANDY",
+const time: IToken = {
+    name: "TIME",
     address: "0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
-    img: KandyIcon,
+    img: TimeIcon,
     decimals: 9,
 };
 
@@ -430,7 +430,7 @@ export default [
     sushi,
     syn,
     teddy,
-    kandy,
+    time,
     tsd,
     usdc,
     usdt,
