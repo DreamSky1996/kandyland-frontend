@@ -28,11 +28,11 @@ interface IAccountBalances {
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+    const memoContract = new ethers.Contract(addresses.SKANDY_ADDRESS, MemoTokenContract, provider);
     const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+    const timeContract = new ethers.Contract(addresses.KANDY_ADDRESS, TimeTokenContract, provider);
     const timeBalance = await timeContract.balanceOf(address);
-    const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
+    const wmemoContract = new ethers.Contract(addresses.WSKANDY_ADDRESS, wMemoTokenContract, provider);
     const wmemoBalance = await wmemoContract.balanceOf(address);
 
     return {
@@ -77,25 +77,25 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.TIME_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+    if (addresses.KANDY_ADDRESS) {
+        const timeContract = new ethers.Contract(addresses.KANDY_ADDRESS, TimeTokenContract, provider);
         timeBalance = await timeContract.balanceOf(address);
 
         stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
-    if (addresses.MEMO_ADDRESS) {
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+    if (addresses.SKANDY_ADDRESS) {
+        const memoContract = new ethers.Contract(addresses.SKANDY_ADDRESS, MemoTokenContract, provider);
         memoBalance = await memoContract.balanceOf(address);
         unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
-        if (addresses.WMEMO_ADDRESS) {
-            memoWmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
+        if (addresses.WSKANDY_ADDRESS) {
+            memoWmemoAllowance = await memoContract.allowance(address, addresses.WSKANDY_ADDRESS);
         }
     }
 
-    if (addresses.WMEMO_ADDRESS) {
-        const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
+    if (addresses.WSKANDY_ADDRESS) {
+        const wmemoContract = new ethers.Contract(addresses.WSKANDY_ADDRESS, wMemoTokenContract, provider);
         wmemoBalance = await wmemoContract.balanceOf(address);
     }
 
@@ -226,7 +226,6 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
     const addresses = getAddresses(networkID);
 
     const tokenContract = new ethers.Contract(token.address, MimTokenContract, provider);
-    console.log("token address", token.address);
     let allowance,
         balance = "0";
 
@@ -235,7 +234,6 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
     balance = await tokenContract.balanceOf(address);
     
     const balanceVal = Number(balance) / Math.pow(10, token.decimals);
-    console.log("balance",balanceVal);
     return {
         token: token.name,
         address: token.address,

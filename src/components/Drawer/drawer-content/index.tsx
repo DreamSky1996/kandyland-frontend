@@ -132,11 +132,11 @@ function NavContent() {
                 </div>
             </div>
             <div className="dapp-menu-doc-link">
-                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank">
+                <Link href="#" target="_blank">
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>
                 </Link>
-                <Link href="https://legacy.wonderland.money/" target="_blank">
+                <Link href="#" target="_blank">
                     <p>Legacy website</p>
                 </Link>
             </div>

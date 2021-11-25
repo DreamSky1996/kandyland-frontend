@@ -96,7 +96,6 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     if (!value) {
         value = "0";
     }
-    console.log("bond",bond);
 
     const amountInWei = ethers.utils.parseEther(value);
 
@@ -111,12 +110,9 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     const bondCalcContract = getBondCalculator(networkID, provider);
 
     const terms = await bondContract.terms();
-    console.log("terms",terms);
 
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
-    console.log("maxBondPrice",maxBondPrice);
     let marketPrice = await getMarketPrice(networkID, provider);
-    console.log("marketPrice",marketPrice);
     const mimPrice = getTokenPrice("MIM");
     marketPrice = (marketPrice / Math.pow(10, 9)) * mimPrice;
 
