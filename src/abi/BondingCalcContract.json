@@ -2,14 +2,14 @@
     "abi": [{
         "inputs": [{
             "internalType": "address",
-            "name": "_Kandy",
+            "name": "_Time",
             "type": "address"
         }],
         "stateMutability": "nonpayable",
         "type": "constructor"
     }, {
         "inputs": [],
-        "name": "Kandy",
+        "name": "Time",
         "outputs": [{
             "internalType": "address",
             "name": "",

@@ -4,7 +4,7 @@
             "stateMutability": "nonpayable",
             "inputs": [{
                 "type": "address",
-                "name": "_sKANDY",
+                "name": "_MEMO",
                 "internalType": "address"
             }]
         },
@@ -64,7 +64,7 @@
                 "name": "",
                 "internalType": "address"
             }],
-            "name": "sKANDY",
+            "name": "MEMO",
             "inputs": []
         },
         {
@@ -75,7 +75,7 @@
                 "name": "",
                 "internalType": "uint256"
             }],
-            "name": "sKANDYTowsKANDY",
+            "name": "MEMOTowMEMO",
             "inputs": [{
                 "type": "uint256",
                 "name": "_amount",
@@ -295,7 +295,7 @@
                 "name": "",
                 "internalType": "uint256"
             }],
-            "name": "wsKANDYTosKANDY",
+            "name": "wMEMOToMEMO",
             "inputs": [{
                 "type": "uint256",
                 "name": "_amount",

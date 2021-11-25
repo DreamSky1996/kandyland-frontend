@@ -1,5 +1,5 @@
-import KandyImg from "../assets/tokens/KANDY.png";
-import sKANDYImg from "../assets/tokens/sKandy.png";
+import TimeImg from "../assets/tokens/TIME.svg";
+import MemoImg from "../assets/tokens/MEMO.png";
 
 function toUrl(tokenPath: string): string {
     const host = window.location.origin;
@@ -7,12 +7,12 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "kandy") {
-        return toUrl(KandyImg);
+    if (name === "time") {
+        return toUrl(TimeImg);
     }
 
-    if (name === "sKANDY") {
-        return toUrl(sKANDYImg);
+    if (name === "memo") {
+        return toUrl(MemoImg);
     }
 
     throw Error(`Token url doesn't support: ${name}`);

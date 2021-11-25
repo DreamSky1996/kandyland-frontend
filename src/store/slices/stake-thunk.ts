@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingHelperContract, KandyTokenContract, sKANDYTokenContract, StakingContract } from "../../abi";
+import { StakingHelperContract, TimeTokenContract, MemoTokenContract, StakingContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getStakingTypeText } from "./pending-txns-slice";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -27,23 +27,23 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const kandyContract = new ethers.Contract(addresses.KANDY_ADDRESS, KandyTokenContract, signer);
-    const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, sKANDYTokenContract, signer);
+    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, signer);
+    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, signer);
 
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
 
-        if (token === "kandy") {
-            approveTx = await kandyContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "time") {
+            approveTx = await timeContract.approve(addresses.STAKING_HELPER_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        if (token === "sKANDY") {
-            approveTx = await sKANDYContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        if (token === "memo") {
+            approveTx = await memoContract.approve(addresses.STAKING_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
         }
 
-        const text = "Approve " + (token === "kandy" ? "Staking" : "Unstaking");
-        const pendingTxnType = token === "kandy" ? "approve_staking" : "approve_unstaking";
+        const text = "Approve " + (token === "time" ? "Staking" : "Unstaking");
+        const pendingTxnType = token === "time" ? "approve_staking" : "approve_unstaking";
 
         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
         await approveTx.wait();
@@ -58,14 +58,14 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
 
     await sleep(2);
 
-    const stakeAllowance = await kandyContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
-    const unstakeAllowance = await sKANDYContract.allowance(address, addresses.STAKING_ADDRESS);
+    const stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    const unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
             staking: {
-                kandyStake: Number(stakeAllowance),
-                sKANDYUnstake: Number(unstakeAllowance),
+                timeStake: Number(stakeAllowance),
+                memoUnstake: Number(unstakeAllowance),
             },
         }),
     );

@@ -6,8 +6,8 @@ import { Skeleton } from "@material-ui/lab";
 import { useMemo } from "react";
 import { IReduxState } from "../../store/slices/state.interface";
 
-function RebaseKandyr() {
-    const currentBlockKandy = useSelector<IReduxState, number>(state => {
+function RebaseTimer() {
+    const currentBlockTime = useSelector<IReduxState, number>(state => {
         return state.app.currentBlockTime;
     });
 
@@ -16,16 +16,16 @@ function RebaseKandyr() {
     });
 
     const timeUntilRebase = useMemo(() => {
-        if (currentBlockKandy && nextRebase) {
-            const seconds = secondsUntilBlock(currentBlockKandy, nextRebase);
+        if (currentBlockTime && nextRebase) {
+            const seconds = secondsUntilBlock(currentBlockTime, nextRebase);
             return prettifySeconds(seconds);
         }
-    }, [currentBlockKandy, nextRebase]);
+    }, [currentBlockTime, nextRebase]);
 
     return (
         <Box className="rebase-timer">
             <p>
-                {currentBlockKandy ? (
+                {currentBlockTime ? (
                     timeUntilRebase ? (
                         <>
                             <strong>{timeUntilRebase}</strong> to Next Rebase
@@ -41,4 +41,4 @@ function RebaseKandyr() {
     );
 }
 
-export default RebaseKandyr;
+export default RebaseTimer;

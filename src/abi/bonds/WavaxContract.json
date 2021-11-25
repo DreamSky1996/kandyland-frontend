@@ -566,7 +566,7 @@
         },
         {
             "inputs": [{
-                    "internalType": "enum KandyBondDepository.PARAMETER",
+                    "internalType": "enum TimeBondDepository.PARAMETER",
                     "name": "_parameter",
                     "type": "uint8"
                 },

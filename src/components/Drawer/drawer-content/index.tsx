@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Social from "./social";
 import StakeIcon from "../../../assets/icons/stake.svg";
 import BondIcon from "../../../assets/icons/bond.svg";
-import KandylandIcon from "../../../assets/images/kandyland.png";
+import kandylandIcon from "../../../assets/icons/kandyland.png";
 import DashboardIcon from "../../../assets/icons/dashboard.svg";
 import { trim, shorten } from "../../../helpers";
 import { useAddress } from "../../../hooks";
@@ -36,12 +36,14 @@ function NavContent() {
         }
         return false;
     }, []);
-    let style = { height: "150px", width: "150px" };
+
+    const style = { width: "130px", height: "130px"}; 
+
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://kandyland.money" target="_blank">
-                    <img alt="" src={KandylandIcon}  style={style}/>
+                <Link href="https://wonderland.money" target="_blank">
+                    <img alt="" src={kandylandIcon}  style={style}/>
                 </Link>
 
                 {address && (
@@ -130,11 +132,11 @@ function NavContent() {
                 </div>
             </div>
             <div className="dapp-menu-doc-link">
-                <Link href="https://kandyland.gitbook.io/kandyland/" target="_blank">
+                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank">
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>
                 </Link>
-                <Link href="https://legacy.kandyland.money/" target="_blank">
+                <Link href="https://legacy.wonderland.money/" target="_blank">
                     <p>Legacy website</p>
                 </Link>
             </div>

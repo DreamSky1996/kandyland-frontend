@@ -27,17 +27,17 @@ function Stake() {
     const fiveDayRate = useSelector<IReduxState, number>(state => {
         return state.app.fiveDayRate;
     });
-    const kandyBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.kandy;
+    const timeBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.time;
     });
-    const sKANDYBalance = useSelector<IReduxState, string>(state => {
-        return state.account.balances && state.account.balances.sKANDY;
+    const memoBalance = useSelector<IReduxState, string>(state => {
+        return state.account.balances && state.account.balances.memo;
     });
     const stakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.kandy;
+        return state.account.staking && state.account.staking.time;
     });
     const unstakeAllowance = useSelector<IReduxState, number>(state => {
-        return state.account.staking && state.account.staking.sKANDY;
+        return state.account.staking && state.account.staking.memo;
     });
     const stakingRebase = useSelector<IReduxState, number>(state => {
         return state.app.stakingRebase;
@@ -55,9 +55,9 @@ function Stake() {
 
     const setMax = () => {
         if (view === 0) {
-            setQuantity(kandyBalance);
+            setQuantity(timeBalance);
         } else {
-            setQuantity(sKANDYBalance);
+            setQuantity(memoBalance);
         }
     };
 
@@ -79,8 +79,8 @@ function Stake() {
 
     const hasAllowance = useCallback(
         token => {
-            if (token === "kandy") return stakeAllowance > 0;
-            if (token === "sKANDY") return unstakeAllowance > 0;
+            if (token === "time") return stakeAllowance > 0;
+            if (token === "memo") return unstakeAllowance > 0;
             return 0;
         },
         [stakeAllowance],
@@ -91,10 +91,10 @@ function Stake() {
         setQuantity("");
     };
 
-    const trimmedsKANDYBalance = trim(Number(sKANDYBalance), 6);
+    const trimmedMemoBalance = trim(Number(memoBalance), 6);
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
-    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedsKANDYBalance), 6);
+    const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
 
     return (
         <div className="stake-view">
@@ -154,7 +154,7 @@ function Stake() {
                                     <div className="stake-card-wallet-connect-btn" onClick={connect}>
                                         <p>Connect Wallet</p>
                                     </div>
-                                    <p className="stake-card-wallet-desc-text">Connect your wallet to stake KANDY tokens!</p>
+                                    <p className="stake-card-wallet-desc-text">Connect your wallet to stake TIME tokens!</p>
                                 </div>
                             )}
                             {address && (
@@ -188,7 +188,7 @@ function Stake() {
 
                                             {view === 0 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("kandy") ? (
+                                                    {address && hasAllowance("time") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -196,14 +196,14 @@ function Stake() {
                                                                 onChangeStake("stake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake KANDY")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "staking", "Stake TIME")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_staking")) return;
-                                                                onSeekApproval("kandy");
+                                                                onSeekApproval("time");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_staking", "Approve")}</p>
@@ -214,7 +214,7 @@ function Stake() {
 
                                             {view === 1 && (
                                                 <div className="stake-card-tab-panel">
-                                                    {address && hasAllowance("sKANDY") ? (
+                                                    {address && hasAllowance("memo") ? (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
@@ -222,14 +222,14 @@ function Stake() {
                                                                 onChangeStake("unstake");
                                                             }}
                                                         >
-                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake KANDY")}</p>
+                                                            <p>{txnButtonText(pendingTransactions, "unstaking", "Unstake TIME")}</p>
                                                         </div>
                                                     ) : (
                                                         <div
                                                             className="stake-card-tab-panel-btn"
                                                             onClick={() => {
                                                                 if (isPendingTxn(pendingTransactions, "approve_unstaking")) return;
-                                                                onSeekApproval("sKANDY");
+                                                                onSeekApproval("memo");
                                                             }}
                                                         >
                                                             <p>{txnButtonText(pendingTransactions, "approve_unstaking", "Approve")}</p>
@@ -240,7 +240,7 @@ function Stake() {
                                         </div>
 
                                         <div className="stake-card-action-help-text">
-                                            {address && ((!hasAllowance("kandy") && view === 0) || (!hasAllowance("sKANDY") && view === 1)) && (
+                                            {address && ((!hasAllowance("time") && view === 0) || (!hasAllowance("memo") && view === 1)) && (
                                                 <p>
                                                     Note: The "Approve" transaction is only needed when staking/unstaking for the first time; subsequent staking/unstaking only
                                                     requires you to perform the "Stake" or "Unstake" transaction.
@@ -252,17 +252,17 @@ function Stake() {
                                     <div className="stake-user-data">
                                         <div className="data-row">
                                             <p className="data-row-name">Your Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(kandyBalance), 4)} KANDY</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trim(Number(timeBalance), 4)} TIME</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Your Staked Balance</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedsKANDYBalance} sKANDY</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{trimmedMemoBalance} MEMO</>}</p>
                                         </div>
 
                                         <div className="data-row">
                                             <p className="data-row-name">Next Reward Amount</p>
-                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} sKANDY</>}</p>
+                                            <p className="data-row-value">{isAppLoading ? <Skeleton width="80px" /> : <>{nextRewardValue} MEMO</>}</p>
                                         </div>
 
                                         <div className="data-row">

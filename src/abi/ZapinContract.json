@@ -54,7 +54,7 @@
         }, {
             "type": "address",
             "name": "_bondDepository",
-            "internalType": "contract IKandyBondDepository"
+            "internalType": "contract ITimeBondDepository"
         }, {
             "type": "uint256",
             "name": "_amount",
@@ -96,7 +96,7 @@
         }, {
             "type": "address",
             "name": "_bondDepository",
-            "internalType": "contract IKandyBondDepository"
+            "internalType": "contract ITimeBondDepository"
         }, {
             "type": "uint256",
             "name": "_amount",
@@ -166,7 +166,7 @@
         "inputs": [{
             "type": "address",
             "name": "",
-            "internalType": "contract IKandyBondDepository"
+            "internalType": "contract ITimeBondDepository"
         }]
     }, {
         "type": "function",
@@ -180,7 +180,7 @@
         "inputs": [{
             "type": "address",
             "name": "",
-            "internalType": "contract IKandyBondDepository"
+            "internalType": "contract ITimeBondDepository"
         }]
     }, {
         "type": "function",

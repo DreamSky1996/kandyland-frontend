@@ -2,11 +2,11 @@
     "abi": [{
         "inputs": [{
             "internalType": "address",
-            "name": "_Kandy",
+            "name": "_Time",
             "type": "address"
         }, {
             "internalType": "address",
-            "name": "_sKandyland",
+            "name": "_Memories",
             "type": "address"
         }, {
             "internalType": "uint32",
@@ -55,7 +55,7 @@
         "type": "event"
     }, {
         "inputs": [],
-        "name": "sKandyland",
+        "name": "Memories",
         "outputs": [{
             "internalType": "address",
             "name": "",
@@ -65,7 +65,7 @@
         "type": "function"
     }, {
         "inputs": [],
-        "name": "Kandy",
+        "name": "Time",
         "outputs": [{
             "internalType": "address",
             "name": "",
@@ -211,7 +211,7 @@
         "type": "function"
     }, {
         "inputs": [{
-            "internalType": "enum KandyStaking.CONTRACTS",
+            "internalType": "enum TimeStaking.CONTRACTS",
             "name": "_contract",
             "type": "uint8"
         }, {

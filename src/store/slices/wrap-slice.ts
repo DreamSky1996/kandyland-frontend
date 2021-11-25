@@ -7,7 +7,7 @@ import { info, success, warning } from "./messages-slice";
 import { RootState } from "../store";
 import { ethers } from "ethers";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
-import { wsKANDYTokenContract } from "../../abi";
+import { wMemoTokenContract } from "../../abi";
 import { clearPendingTxn, fetchPendingTxns, getWrapingTypeText } from "./pending-txns-slice";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { fetchAccountSuccess, getBalances } from "./account-slice";
@@ -26,13 +26,13 @@ export const changeApproval = createAsyncThunk("wraping/changeApproval", async (
 
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
-    const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, wsKANDYTokenContract, signer);
+    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, wMemoTokenContract, signer);
 
     let approveTx;
     try {
         const gasPrice = await getGasPrice(provider);
 
-        approveTx = await sKANDYContract.approve(addresses.wsKANDY_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+        approveTx = await memoContract.approve(addresses.WMEMO_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
 
         const text = "Approve Wraping";
         const pendingTxnType = "approve_wraping";
@@ -50,12 +50,12 @@ export const changeApproval = createAsyncThunk("wraping/changeApproval", async (
 
     await sleep(2);
 
-    const wsKANDYAllowance = await sKANDYContract.allowance(address, addresses.wsKANDY_ADDRESS);
+    const wmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
 
     return dispatch(
         fetchAccountSuccess({
             wraping: {
-                wsKANDY: Number(wsKANDYAllowance),
+                wmemo: Number(wmemoAllowance),
             },
         }),
     );
@@ -78,7 +78,7 @@ export const changeWrap = createAsyncThunk("wraping/changeWrap", async ({ isWrap
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
     const amountInWei = isWrap ? ethers.utils.parseUnits(value, "gwei") : ethers.utils.parseEther(value);
-    const wsKANDYContract = new ethers.Contract(addresses.wsKANDY_ADDRESS, wsKANDYTokenContract, signer);
+    const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, signer);
 
     let wrapTx;
 
@@ -86,9 +86,9 @@ export const changeWrap = createAsyncThunk("wraping/changeWrap", async ({ isWrap
         const gasPrice = await getGasPrice(provider);
 
         if (isWrap) {
-            wrapTx = await wsKANDYContract.wrap(amountInWei, { gasPrice });
+            wrapTx = await wmemoContract.wrap(amountInWei, { gasPrice });
         } else {
-            wrapTx = await wsKANDYContract.unwrap(amountInWei, { gasPrice });
+            wrapTx = await wmemoContract.unwrap(amountInWei, { gasPrice });
         }
 
         const pendingTxnType = isWrap ? "wraping" : "unwraping";
@@ -137,14 +137,14 @@ export const calcWrapDetails = createAsyncThunk("wraping/calcWrapDetails", async
 
     let wrapValue = 0;
 
-    const wsKANDYContract = new ethers.Contract(addresses.wsKANDY_ADDRESS, wsKANDYTokenContract, provider);
+    const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
 
     if (isWrap) {
-        const wsKANDYValue = await wsKANDYContract.sKANDYTowsKANDY(amountInWei);
-        wrapValue = wsKANDYValue / Math.pow(10, 18);
+        const wmemoValue = await wmemoContract.MEMOTowMEMO(amountInWei);
+        wrapValue = wmemoValue / Math.pow(10, 18);
     } else {
-        const sKANDYValue = await wsKANDYContract.wsKANDYTosKANDY(amountInWei);
-        wrapValue = sKANDYValue / Math.pow(10, 9);
+        const memoValue = await wmemoContract.wMEMOToMEMO(amountInWei);
+        wrapValue = memoValue / Math.pow(10, 9);
     }
 
     return {

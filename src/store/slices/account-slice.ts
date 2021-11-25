@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { KandyTokenContract, sKANDYTokenContract, MimTokenContract, wsKANDYTokenContract } from "../../abi";
+import { TimeTokenContract, MemoTokenContract, MimTokenContract, wMemoTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -19,27 +19,27 @@ interface IGetBalances {
 
 interface IAccountBalances {
     balances: {
-        sKANDY: string;
-        kandy: string;
-        wsKANDY: string;
+        memo: string;
+        time: string;
+        wmemo: string;
     };
 }
 
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, sKANDYTokenContract, provider);
-    const sKANDYBalance = await sKANDYContract.balanceOf(address);
-    const kandyContract = new ethers.Contract(addresses.KANDY_ADDRESS, KandyTokenContract, provider);
-    const kandyBalance = await kandyContract.balanceOf(address);
-    const wsKANDYContract = new ethers.Contract(addresses.wsKANDY_ADDRESS, wsKANDYTokenContract, provider);
-    const wsKANDYBalance = await wsKANDYContract.balanceOf(address);
+    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+    const memoBalance = await memoContract.balanceOf(address);
+    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+    const timeBalance = await timeContract.balanceOf(address);
+    const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
+    const wmemoBalance = await wmemoContract.balanceOf(address);
 
     return {
         balances: {
-            sKANDY: ethers.utils.formatUnits(sKANDYBalance, "gwei"),
-            kandy: ethers.utils.formatUnits(kandyBalance, "gwei"),
-            wsKANDY: ethers.utils.formatEther(wsKANDYBalance),
+            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
+            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            wmemo: ethers.utils.formatEther(wmemoBalance),
         },
     };
 });
@@ -52,64 +52,65 @@ interface ILoadAccountDetails {
 
 interface IUserAccountDetails {
     balances: {
-        kandy: string;
-        sKANDY: string;
-        wsKANDY: string;
+        time: string;
+        memo: string;
+        wmemo: string;
     };
     staking: {
-        kandy: number;
-        sKANDY: number;
+        time: number;
+        memo: number;
     };
     wraping: {
-        sKANDY: number;
+        memo: number;
     };
 }
 
 export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails", async ({ networkID, provider, address }: ILoadAccountDetails): Promise<IUserAccountDetails> => {
-    let kandyBalance = 0;
-    let sKANDYBalance = 0;
+    let timeBalance = 0;
+    let memoBalance = 0;
 
-    let wsKANDYBalance = 0;
-    let sKANDYwsKANDYAllowance = 0;
+    let wmemoBalance = 0;
+    let memoWmemoAllowance = 0;
 
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.KANDY_ADDRESS) {
-        const kandyContract = new ethers.Contract(addresses.KANDY_ADDRESS, KandyTokenContract, provider);
-        kandyBalance = await kandyContract.balanceOf(address);
-        stakeAllowance = await kandyContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+    if (addresses.TIME_ADDRESS) {
+        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+        timeBalance = await timeContract.balanceOf(address);
+
+        stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
-    if (addresses.sKANDY_ADDRESS) {
-        const sKANDYContract = new ethers.Contract(addresses.sKANDY_ADDRESS, sKANDYTokenContract, provider);
-        sKANDYBalance = await sKANDYContract.balanceOf(address);
-        unstakeAllowance = await sKANDYContract.allowance(address, addresses.STAKING_ADDRESS);
+    if (addresses.MEMO_ADDRESS) {
+        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+        memoBalance = await memoContract.balanceOf(address);
+        unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
 
-        if (addresses.wsKANDY_ADDRESS) {
-            sKANDYwsKANDYAllowance = await sKANDYContract.allowance(address, addresses.wsKANDY_ADDRESS);
+        if (addresses.WMEMO_ADDRESS) {
+            memoWmemoAllowance = await memoContract.allowance(address, addresses.WMEMO_ADDRESS);
         }
     }
 
-    if (addresses.wsKANDY_ADDRESS) {
-        const wsKANDYContract = new ethers.Contract(addresses.wsKANDY_ADDRESS, wsKANDYTokenContract, provider);
-        wsKANDYBalance = await wsKANDYContract.balanceOf(address);
+    if (addresses.WMEMO_ADDRESS) {
+        const wmemoContract = new ethers.Contract(addresses.WMEMO_ADDRESS, wMemoTokenContract, provider);
+        wmemoBalance = await wmemoContract.balanceOf(address);
     }
 
     return {
         balances: {
-            sKANDY: ethers.utils.formatUnits(sKANDYBalance, "gwei"),
-            kandy: ethers.utils.formatUnits(kandyBalance, "gwei"),
-            wsKANDY: ethers.utils.formatEther(wsKANDYBalance),
+            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
+            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            wmemo: ethers.utils.formatEther(wmemoBalance),
         },
         staking: {
-            kandy: Number(stakeAllowance),
-            sKANDY: Number(unstakeAllowance),
+            time: Number(stakeAllowance),
+            memo: Number(unstakeAllowance),
         },
         wraping: {
-            sKANDY: Number(sKANDYwsKANDYAllowance),
+            memo: Number(memoWmemoAllowance),
         },
     };
 });
@@ -155,7 +156,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
 
     const bondDetails = await bondContract.bondInfo(address);
     interestDue = bondDetails.payout / Math.pow(10, 9);
-    bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastKandy);
+    bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastTime);
     pendingPayout = await bondContract.pendingPayoutFor(address);
 
     let allowance,
@@ -225,15 +226,16 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
     const addresses = getAddresses(networkID);
 
     const tokenContract = new ethers.Contract(token.address, MimTokenContract, provider);
-
+    console.log("token address", token.address);
     let allowance,
         balance = "0";
 
     allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+
     balance = await tokenContract.balanceOf(address);
-
+    
     const balanceVal = Number(balance) / Math.pow(10, token.decimals);
-
+    console.log("balance",balanceVal);
     return {
         token: token.name,
         address: token.address,
@@ -246,17 +248,17 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
-        sKANDY: string;
-        kandy: string;
-        wsKANDY: string;
+        memo: string;
+        time: string;
+        wmemo: string;
     };
     loading: boolean;
     staking: {
-        kandy: number;
-        sKANDY: number;
+        time: number;
+        memo: number;
     };
     wraping: {
-        sKANDY: number;
+        memo: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
 }
@@ -264,9 +266,9 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { sKANDY: "", kandy: "", wsKANDY: "" },
-    staking: { kandy: 0, sKANDY: 0 },
-    wraping: { sKANDY: 0 },
+    balances: { memo: "", time: "", wmemo: "" },
+    staking: { time: 0, memo: 0 },
+    wraping: { memo: 0 },
     tokens: {},
 };
 

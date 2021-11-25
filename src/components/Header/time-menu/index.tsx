@@ -2,7 +2,7 @@ import { useState } from "react";
 import { getAddresses, TOKEN_DECIMALS, DEFAULD_NETWORK } from "../../../constants";
 import { useSelector } from "react-redux";
 import { Link, Fade, Popper } from "@material-ui/core";
-import "./kandy-menu.scss";
+import "./time-menu.scss";
 import { IReduxState } from "../../../store/slices/state.interface";
 import { getTokenUrl } from "../../../helpers";
 
@@ -29,7 +29,7 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
     }
 };
 
-function KandyMenu() {
+function TimeMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
     const isEthereumAPIAvailable = window.ethereum;
 
@@ -39,8 +39,8 @@ function KandyMenu() {
 
     const addresses = getAddresses(networkID);
 
-    const sKANDY_ADDRESS = addresses.sKANDY_ADDRESS;
-    const KANDY_ADDRESS = addresses.KANDY_ADDRESS;
+    const MEMO_ADDRESS = addresses.MEMO_ADDRESS;
+    const TIME_ADDRESS = addresses.TIME_ADDRESS;
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -49,16 +49,16 @@ function KandyMenu() {
     const open = Boolean(anchorEl);
 
     return (
-        <div className="kandy-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
-            <div className="kandy-menu-btn">
+        <div className="time-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
+            <div className="time-menu-btn">
                 <p>KANDY</p>
             </div>
 
-            <Popper className="kandy-menu-popper" open={open} anchorEl={anchorEl} transition>
+            <Popper className="time-menu-popper" open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${KANDY_ADDRESS}`} target="_blank">
+                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TIME_ADDRESS}`} target="_blank">
                                 <p>Buy on Trader Joe</p>
                             </Link>
 
@@ -67,11 +67,11 @@ function KandyMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("KANDY", KANDY_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("KANDY", TIME_ADDRESS)}>
                                         <p>KANDY</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("sKANDY", sKANDY_ADDRESS)}>
-                                        <p>sKANDY</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("SKANDY", MEMO_ADDRESS)}>
+                                        <p>SKANDY</p>
                                     </div>
                                 </div>
                             )}
@@ -83,4 +83,4 @@ function KandyMenu() {
     );
 }
 
-export default KandyMenu;
+export default TimeMenu;
