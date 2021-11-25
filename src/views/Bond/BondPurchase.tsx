@@ -26,7 +26,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     const [useAvax, setUseAvax] = useState(false);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
-    const [zapinOpen, setZapinOpen] = useState(false);
+    // const [zapinOpen, setZapinOpen] = useState(false);
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
         return state.pendingTransactions;
@@ -110,15 +110,15 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
     };
 
-    const handleZapinOpen = () => {
-        dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
-        setZapinOpen(true);
-    };
+    // const handleZapinOpen = () => {
+    //     dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
+    //     setZapinOpen(true);
+    // };
 
-    const handleZapinClose = () => {
-        dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
-        setZapinOpen(false);
-    };
+    // const handleZapinClose = () => {
+    //     dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
+    //     setZapinOpen(false);
+    // };
 
     const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
 
@@ -172,9 +172,9 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
                 )}
 
-                <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
+                {/* <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
                     <p>Zap</p>
-                </div>
+                </div> */}
 
                 {!hasAllowance() && !useAvax && (
                     <div className="help-text">
@@ -226,7 +226,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
                     </div>
                 </Box>
             </Slide>
-            <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
+            {/* <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} /> */}
         </Box>
     );
 }

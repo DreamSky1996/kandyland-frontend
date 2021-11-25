@@ -93,6 +93,7 @@ export interface IBondDetails {
 }
 
 export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async ({ bond, value, provider, networkID }: ICalcBondDetails, { dispatch }) => {
+    console.log("calcBondDetails");
     if (!value) {
         value = "0";
     }

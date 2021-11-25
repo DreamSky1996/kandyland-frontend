@@ -7,6 +7,7 @@ import { TraderZapinContract } from "../abi";
 import { BigNumber } from "ethers";
 
 export const zapinLpData = async (bond: IAllBondData, token: IToken, tokenAmmount: string, network: Networks, slippage: number) => {
+    
     const addresses = getAddresses(network);
 
     const sellToken = token.isAvax ? ethers.constants.AddressZero : token.address;
@@ -24,6 +25,7 @@ export const zapinLpData = async (bond: IAllBondData, token: IToken, tokenAmmoun
 };
 
 export const zapinData = async (bond: IAllBondData, token: IToken, tokenAmmount: string, network: Networks, slippage: number) => {
+    console.log("zapinData");
     const sellToken = token.isAvax ? "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" : token.address;
     const buyToken = bond.getAddressForReserve(network);
 
