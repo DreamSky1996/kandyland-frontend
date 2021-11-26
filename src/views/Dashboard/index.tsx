@@ -84,7 +84,8 @@ function Dashboard() {
                         <Grid item lg={6} md={6} sm={6} xs={12}>
                             <div className="dashboard-card">
                                 <p className="card-title">APY</p>
-                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%`}</p>
+                                {/* <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%`}</p> */}
+                                <p className="card-value">{isAppLoading ? <Skeleton width="250px" /> : `${trimmedStakingAPY.length > 10? "more than 10^8": new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%`}</p>
                             </div>
                         </Grid>
 
