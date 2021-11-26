@@ -60,7 +60,7 @@ function Footer() {
                         <p className="landing-footer-item-title">Current APY</p>
                         <p className="landing-footer-item-value">
                             {/* {stakingAPY ? <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />} */}
-                            {stakingAPY ? <>${trimmedStakingAPY.length > 10? "more than 10^8": new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />}
+                            {stakingAPY ? <>{trimmedStakingAPY.length > 10? "∞": new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</> : <Skeleton width="150px" />}
                         </p>
                     </div>
                 </Grid>

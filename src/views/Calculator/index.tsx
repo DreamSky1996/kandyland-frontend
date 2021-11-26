@@ -94,7 +94,8 @@ function Calculator() {
                                         <div className="calculator-card-tvl">
                                             <p className="calculator-card-metrics-title">Current APY</p>
                                             <p className="calculator-card-metrics-value">
-                                                {isAppLoading ? <Skeleton width="100px" /> : <>{new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</>}
+                                                {isAppLoading ? <Skeleton width="100px" /> : <>{trimmedStakingAPY.length > 10? "∞": new Intl.NumberFormat("en-US").format(Number(trimmedStakingAPY))}%</>}
+                                                
                                             </p>
                                         </div>
                                     </Grid>
