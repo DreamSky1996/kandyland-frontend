@@ -73,5 +73,6 @@ export const avaxTime = new CustomLPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
-export default [mim, wavax, mimTime, avaxTime];
+// export default [mim, wavax, mimTime, avaxTime];
+export default [mim, mimTime, avaxTime];
 
