@@ -53,7 +53,7 @@ function ViewBase({ children }: IViewBaseProps) {
     return (
         <div className="view-base-root">
             <video autoPlay muted loop id="background-video">
-                <source src="assets/background1.mp4" type="video/mp4" />
+                <source src="assets/background2.mp4" type="video/mp4" />
             </video>
             <Messages />
             <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
