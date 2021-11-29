@@ -132,7 +132,7 @@ function NavContent() {
                 </div>
             </div>
             <div className="dapp-menu-doc-link">
-                <Link href="#" target="_blank">
+                <Link href="https://docs.kandyland.finance/the-kandyland-dao/introduction" target="_blank">
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>
                 </Link>
