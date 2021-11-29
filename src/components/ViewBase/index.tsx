@@ -7,6 +7,7 @@ import MobileDrawer from "../Drawer/mobile-drawer";
 import Drawer from "../Drawer";
 import Messages from "../Messages";
 
+
 interface IViewBaseProps {
     children: React.ReactNode;
 }
@@ -51,6 +52,9 @@ function ViewBase({ children }: IViewBaseProps) {
 
     return (
         <div className="view-base-root">
+            <video autoPlay muted loop id="background-video">
+                <source src="assets/background.mp4" type="video/mp4" />
+            </video>
             <Messages />
             <Header drawe={!isSmallerScreen} handleDrawerToggle={handleDrawerToggle} />
             <div className={classes.drawer}>

@@ -4,9 +4,6 @@
     display: flex;
     flex-direction: column;
     background: #121415;
-    background-image: url("../../assets/images/background.png");
-    background-repeat: no-repeat;
-    background-size: cover;
     .cubes-top {
         opacity: 0.6;
         position: absolute;
@@ -40,4 +37,14 @@
             user-select: none;
         }
     }
+}
+#background-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
