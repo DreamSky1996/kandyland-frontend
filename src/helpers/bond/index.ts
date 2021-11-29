@@ -41,7 +41,7 @@ export const wavax = new CustomBond({
     tokensInStrategy: "756916000000000000000000",
 });
 
-export const mimTime = new LPBond({
+export const mimKandy = new LPBond({
     name: "mim_time_lp",
     displayName: "KANDY-MIM LP",
     bondToken: "MIM",
@@ -54,10 +54,10 @@ export const mimTime = new LPBond({
             reserveAddress: "0xD58AFc1c62C99BE0D79ec9D587b62cA49d5Dd68e",
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    lpUrl: "https://www.traderjoexyz.com/#/pool/0x7929959Aaa69F313856b2327a2cFAAB5728D8AF3/0x4010DdbfA72724f5c697908296a75301a0e8710e",
 });
 
-export const avaxTime = new CustomLPBond({
+export const avaxKandy = new CustomLPBond({
     name: "avax_time_lp",
     displayName: "KANDY-AVAX LP",
     bondToken: "AVAX",
@@ -70,9 +70,8 @@ export const avaxTime = new CustomLPBond({
             reserveAddress: "0xf0b7eAb44fab7e4afB7110d8475B7725EfF57F48",
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
+    lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0x4010DdbfA72724f5c697908296a75301a0e8710e",
 });
 
-// export default [mim, wavax, mimTime, avaxTime];
-export default [mim, wavax, mimTime, avaxTime];
+export default [mim, wavax, mimKandy, avaxKandy];
 
