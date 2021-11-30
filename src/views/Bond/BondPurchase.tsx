@@ -33,6 +33,7 @@ function BondPurchase({ bond, slippage }: IBondPurchaseProps) {
     });
 
     const vestingPeriod = () => {
+        console.log("dafsdfadfbond",bond);
         return prettifySeconds(bond.vestingTerm, "day");
     };
 

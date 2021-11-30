@@ -93,7 +93,6 @@ export interface IBondDetails {
 }
 
 export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async ({ bond, value, provider, networkID }: ICalcBondDetails, { dispatch }) => {
-    console.log("calcBondDetails");
     if (!value) {
         value = "0";
     }
@@ -109,12 +108,14 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
-
+    
     const terms = await bondContract.terms();
-
     const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
+    console.log("maxBondPrice", maxBondPrice);
     let marketPrice = await getMarketPrice(networkID, provider);
+    console.log("marketPrice", marketPrice);
     const mimPrice = getTokenPrice("MIM");
+    console.log("mimPrice", mimPrice);
     marketPrice = (marketPrice / Math.pow(10, 9)) * mimPrice;
 
     try {
