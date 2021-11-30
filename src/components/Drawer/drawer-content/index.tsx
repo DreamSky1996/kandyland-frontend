@@ -136,9 +136,9 @@ function NavContent() {
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>
                 </Link>
-                <Link href="#" target="_blank">
+                {/* <Link href="#" target="_blank">
                     <p>Legacy website</p>
-                </Link>
+                </Link> */}
             </div>
             <Social />
         </div>
