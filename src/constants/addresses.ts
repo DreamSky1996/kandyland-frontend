@@ -27,7 +27,7 @@ const AVAX_TESTNET = {
 };
 
 export const getAddresses = (networkID: number) => {
-    if (networkID === Networks.AVAX) return AVAX_TESTNET;
+    if (networkID === Networks.AVAX) return AVAX_MAINNET;
 
     throw Error("Network don't support");
 };
