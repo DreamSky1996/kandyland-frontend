@@ -34,7 +34,7 @@ export const wavax = new CustomBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "0x4Fca26df78b44350177988D85Fd013319ef68D07",
+            bondAddress: "0xfcbd66A7D4674Bba16764Ea413e7f070A8Aa1e2f",
             reserveAddress: "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
         },
     },
