@@ -67,7 +67,7 @@ export const avaxKandy = new CustomLPBond({
     networkAddrs: {
         [Networks.AVAX]: {
             bondAddress: "",
-            reserveAddress: "",
+            reserveAddress: "0xD20d23772324737A6FD376002DC8E0842bA4551a",
         },
     },
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/",
