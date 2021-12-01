@@ -18,7 +18,7 @@ export const mim = new StableBond({
     reserveContractAbi: StableReserveContract,
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "",
+            bondAddress: "0x538fB04dD6030c90f71F3e837789d6bc62EEaAbC",
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
     },
@@ -51,10 +51,10 @@ export const mimKandy = new LPBond({
     networkAddrs: {
         [Networks.AVAX]: {
             bondAddress: "",
-            reserveAddress: "",
+            reserveAddress: "0x62A6c10dD0fEae68CD245697a1Fa737b720F6446",
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/",
+    lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0x7CD0b5A1bFefe61188bCE9FF07e1F8d2C49a899a",
 });
 
 export const avaxKandy = new CustomLPBond({
@@ -70,8 +70,9 @@ export const avaxKandy = new CustomLPBond({
             reserveAddress: "",
         },
     },
-    lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/",
+    lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0x7CD0b5A1bFefe61188bCE9FF07e1F8d2C49a899a",
 });
 
-export default [mim, wavax, mimKandy, avaxKandy];
+// export default [mim, wavax, mimKandy, avaxKandy];
+export default [mim];
 
