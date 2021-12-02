@@ -28,12 +28,14 @@ export const loadAppDetails = createAsyncThunk(
 
         const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
 
+        console.log("marketPrice", marketPrice);
         const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
         const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
-
+        console.log("circSupply", circSupply);
         const stakingTVL = circSupply * marketPrice;
+        console.log("stakingTVL",stakingTVL);
         const marketCap = totalSupply * marketPrice;
-
+        console.log("marketCap",marketCap);
         const tokenBalPromises = allBonds.map(bond => bond.getTreasuryBalance(networkID, provider));
         const tokenBalances = await Promise.all(tokenBalPromises);
         const treasuryBalance = tokenBalances.reduce((tokenBalance0, tokenBalance1) => tokenBalance0 + tokenBalance1, 0);
@@ -51,8 +53,11 @@ export const loadAppDetails = createAsyncThunk(
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
+        console.log("stakingReward",stakingReward);
         const circ = await memoContract.circulatingSupply();
+        console.log("circ",circ);
         const stakingRebase = stakingReward / circ;
+        console.log("stakingRebase",stakingRebase);
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
 

@@ -93,6 +93,7 @@ function Stake() {
 
     const trimmedMemoBalance = trim(Number(memoBalance), 6);
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
+    console.log("trimmedStakingAPY", stakingAPY);
     const stakingRebasePercentage = trim(stakingRebase * 100, 4);
     const nextRewardValue = trim((Number(stakingRebasePercentage) / 100) * Number(trimmedMemoBalance), 6);
 

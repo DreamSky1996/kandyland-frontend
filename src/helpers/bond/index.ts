@@ -22,7 +22,8 @@ export const mim = new StableBond({
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
     },
-    tokensInStrategy: "60500000000000000000000000",
+    tokensInStrategy: "",
+    // tokensInStrategy: "60500000000000000000000000",
 });
 
 export const wavax = new CustomBond({
