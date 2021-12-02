@@ -74,5 +74,5 @@ export const avaxKandy = new CustomLPBond({
 });
 
 // export default [mim, wavax, mimKandy, avaxKandy];
-export default [mim, mimKandy, avaxKandy];
+export default [mim, mimKandy];
 
