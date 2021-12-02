@@ -65,6 +65,7 @@ export const loadAppDetails = createAsyncThunk(
         const nextRebase = epoch.endTime;
 
         const treasuryRunway = rfvTreasury / circSupply;
+        console.log("treasuryRunway", treasuryRunway);
         const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
 
         return {
