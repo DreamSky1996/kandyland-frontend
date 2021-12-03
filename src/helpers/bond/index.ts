@@ -22,7 +22,7 @@ export const mim = new StableBond({
             reserveAddress: "0x130966628846BFd36ff31a822705796e8cb8C18D",
         },
     },
-    tokensInStrategy: "60500000000000000000000000",
+    tokensInStrategy: "",
     // tokensInStrategy: "60500000000000000000000000",
 });
 
@@ -51,7 +51,7 @@ export const mimKandy = new LPBond({
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
         [Networks.AVAX]: {
-            bondAddress: "",
+            bondAddress: "0xAF2cC7aD895621503C0B76c347377911b1837775",
             reserveAddress: "0xADdc2fAb2c09aEE808Efed90f6509Ee6A24ab6aa",
         },
     },
@@ -75,5 +75,5 @@ export const avaxKandy = new CustomLPBond({
 });
 
 // export default [mim, wavax, mimKandy, avaxKandy];
-export default [mim];
+export default [mim, mimKandy];
 
