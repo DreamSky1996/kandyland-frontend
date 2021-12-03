@@ -78,6 +78,7 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
     const addresses = getAddresses(networkID);
 
     if (addresses.KANDY_ADDRESS) {
+        console.log("addresses.KANDY_ADDRESS");
         const timeContract = new ethers.Contract(addresses.KANDY_ADDRESS, TimeTokenContract, provider);
         timeBalance = await timeContract.balanceOf(address);
 
