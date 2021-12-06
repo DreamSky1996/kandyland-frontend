@@ -7,9 +7,9 @@ import { ReactComponent as Discord } from "../../../assets/icons/discord.svg";
 export default function Social() {
     return (
         <div className="social-row">
-            <Link href="#" target="_blank">
+            {/* <Link href="#" target="_blank">
                 <SvgIcon color="primary" component={GitHub} />
-            </Link>
+            </Link> */}
 
             <Link href="https://twitter.com/KandylandDAO" target="_blank">
                 <SvgIcon color="primary" component={Twitter} />

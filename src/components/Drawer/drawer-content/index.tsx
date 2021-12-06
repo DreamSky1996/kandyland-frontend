@@ -42,7 +42,7 @@ function NavContent() {
     return (
         <div className="dapp-sidebar">
             <div className="branding-header">
-                <Link href="https://kandyland.money" target="_blank">
+                <Link href="https://app.kandyland.finance" target="_blank">
                     <img alt="" src={kandylandIcon}  style={style}/>
                 </Link>
 
